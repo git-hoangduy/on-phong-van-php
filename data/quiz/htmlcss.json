@@ -1,0 +1,62 @@
+[
+  {
+    "q": "Với `box-sizing: border-box`, phần tử `width: 200px; padding: 20px; border: 5px` có tổng chiều rộng là?",
+    "options": ["200px", "250px", "240px", "210px"],
+    "answer": 0,
+    "explain": "`border-box` tính padding và border vào trong width. Với `content-box` sẽ là 200 + 40 + 10 = 250px."
+  },
+  {
+    "q": "Phần tử `position: absolute` được định vị theo?",
+    "options": ["Viewport", "Phần tử cha trực tiếp", "Tổ tiên gần nhất có `position` khác `static`", "Thẻ `body` luôn luôn"],
+    "answer": 2,
+    "explain": "Nếu không có tổ tiên nào được định vị, nó dùng initial containing block."
+  },
+  {
+    "q": "Selector nào có specificity cao nhất?",
+    "options": ["`.nav .item a`", "`#menu a`", "`ul li a`", "`a:hover`"],
+    "answer": 1,
+    "explain": "ID (1,0,1) thắng mọi tổ hợp class/element không có ID: `.nav .item a` là (0,2,1)."
+  },
+  {
+    "q": "Layout 2 chiều (hàng và cột) cho cả trang nên dùng?",
+    "options": ["Float", "Flexbox", "CSS Grid", "Table"],
+    "answer": 2,
+    "explain": "Grid cho layout 2 chiều; Flexbox mạnh cho layout 1 chiều và căn chỉnh."
+  },
+  {
+    "q": "`opacity: 0` khác `visibility: hidden` ở điểm nào?",
+    "options": ["`opacity: 0` không chiếm chỗ", "Phần tử `opacity: 0` vẫn nhận click", "`visibility: hidden` vẫn nhận click", "Không khác"],
+    "answer": 1,
+    "explain": "Cả hai đều chiếm chỗ, nhưng `opacity: 0` vẫn tương tác được."
+  },
+  {
+    "q": "Đơn vị `rem` tính theo?",
+    "options": ["Font-size phần tử cha", "Font-size phần tử gốc `html`", "Chiều rộng viewport", "Chiều cao phần tử"],
+    "answer": 1,
+    "explain": "`em` theo phần tử cha (dồn khi lồng nhau), `rem` theo root."
+  },
+  {
+    "q": "Thuộc tính nào **không** tạo stacking context mới?",
+    "options": ["`opacity: 0.9`", "`transform: translateX(0)`", "`position: relative` (không có z-index)", "`isolation: isolate`"],
+    "answer": 2,
+    "explain": "`position: relative` cần kèm `z-index` khác auto mới tạo stacking context."
+  },
+  {
+    "q": "Chỉ số Core Web Vitals đo độ dịch chuyển bố cục là?",
+    "options": ["LCP", "INP", "CLS", "TTFB"],
+    "answer": 2,
+    "explain": "CLS = Cumulative Layout Shift. Khai báo `width/height` cho ảnh để giảm CLS."
+  },
+  {
+    "q": "Thẻ nào phù hợp nhất cho nút thực hiện hành động (mở modal)?",
+    "options": ["`<div onclick>`", "`<a href=\"#\">`", "`<button type=\"button\">`", "`<span>`"],
+    "answer": 2,
+    "explain": "`<button>` có sẵn focus, hỗ trợ bàn phím và screen reader. `<a>` dùng cho điều hướng."
+  },
+  {
+    "q": "Script có thuộc tính `defer` sẽ?",
+    "options": ["Chặn parse HTML", "Tải song song và chạy theo thứ tự sau khi HTML parse xong", "Chạy ngay khi tải xong, không theo thứ tự", "Không bao giờ chạy"],
+    "answer": 1,
+    "explain": "`async` chạy ngay khi tải xong (không theo thứ tự); `defer` chờ parse xong và giữ thứ tự."
+  }
+]

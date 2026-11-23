@@ -1,0 +1,68 @@
+[
+  {
+    "q": "Output: `for (var i = 0; i < 3; i++) setTimeout(() => console.log(i));`",
+    "options": ["`0 1 2`", "`3 3 3`", "`undefined` x3", "`2 2 2`"],
+    "answer": 1,
+    "explain": "`var` có function scope, cả 3 callback cùng tham chiếu một `i` đã thành 3. Dùng `let` để có `0 1 2`."
+  },
+  {
+    "q": "Thứ tự in ra: `console.log(1); setTimeout(()=>console.log(2)); Promise.resolve().then(()=>console.log(3)); console.log(4);`",
+    "options": ["`1 2 3 4`", "`1 4 2 3`", "`1 4 3 2`", "`1 3 4 2`"],
+    "answer": 2,
+    "explain": "Code đồng bộ trước (1, 4), sau đó microtask (Promise: 3), cuối cùng macrotask (setTimeout: 2)."
+  },
+  {
+    "q": "`typeof null` trả về?",
+    "options": ["`\"null\"`", "`\"undefined\"`", "`\"object\"`", "`\"number\"`"],
+    "answer": 2,
+    "explain": "Bug lịch sử của JavaScript, được giữ lại để tương thích."
+  },
+  {
+    "q": "`0 || 'default'` và `0 ?? 'default'` lần lượt cho kết quả?",
+    "options": ["`'default'` và `'default'`", "`0` và `0`", "`'default'` và `0`", "`0` và `'default'`"],
+    "answer": 2,
+    "explain": "`||` thay thế mọi giá trị falsy; `??` chỉ thay khi `null`/`undefined`."
+  },
+  {
+    "q": "`Promise.all` sẽ làm gì nếu một promise bị reject?",
+    "options": ["Bỏ qua và tiếp tục", "Reject ngay với lỗi đầu tiên", "Chờ tất cả rồi trả mảng trạng thái", "Retry promise đó"],
+    "answer": 1,
+    "explain": "Muốn lấy kết quả của tất cả kể cả lỗi thì dùng `Promise.allSettled`."
+  },
+  {
+    "q": "Arrow function khác function thường ở điểm nào?",
+    "options": ["Không có `this` riêng — lấy `this` từ scope bao ngoài", "Chạy nhanh hơn", "Có `arguments` riêng", "Có thể dùng với `new`"],
+    "answer": 0,
+    "explain": "Arrow function dùng lexical `this`, không có `arguments`, không làm constructor được."
+  },
+  {
+    "q": "`fetch()` trả về promise bị reject khi nào?",
+    "options": ["Khi server trả 404", "Khi server trả 500", "Chỉ khi lỗi mạng / request không gửi được", "Khi response không phải JSON"],
+    "answer": 2,
+    "explain": "Với 4xx/5xx `fetch` vẫn resolve; phải tự kiểm tra `response.ok`."
+  },
+  {
+    "q": "Kỹ thuật chỉ gọi hàm tìm kiếm sau khi người dùng **ngừng gõ** 300ms gọi là?",
+    "options": ["Throttle", "Debounce", "Memoize", "Currying"],
+    "answer": 1,
+    "explain": "Debounce chờ sự kiện ngừng; throttle giới hạn tần suất tối đa khi sự kiện vẫn diễn ra."
+  },
+  {
+    "q": "`[1, 10, 2].sort()` cho kết quả?",
+    "options": ["`[1, 2, 10]`", "`[1, 10, 2]`", "`[10, 2, 1]`", "`[2, 1, 10]`"],
+    "answer": 1,
+    "explain": "Mặc định `sort` so sánh dạng chuỗi: \"1\" < \"10\" < \"2\". Dùng `sort((a, b) => a - b)`."
+  },
+  {
+    "q": "Cách deep clone object hiện đại có sẵn trong trình duyệt?",
+    "options": ["`{...obj}`", "`Object.assign({}, obj)`", "`structuredClone(obj)`", "`obj.slice()`"],
+    "answer": 2,
+    "explain": "Spread và `Object.assign` chỉ copy nông. `structuredClone` hỗ trợ Date, Map, Set, vòng tham chiếu."
+  },
+  {
+    "q": "Trong Vue, khi cần hiển thị/ẩn một phần tử **rất thường xuyên**, nên dùng?",
+    "options": ["`v-if`", "`v-show`", "`v-for`", "`v-model`"],
+    "answer": 1,
+    "explain": "`v-show` chỉ đổi CSS display; `v-if` tạo/huỷ DOM nên tốn chi phí khi bật tắt nhiều."
+  }
+]

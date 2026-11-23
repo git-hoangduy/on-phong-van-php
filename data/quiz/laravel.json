@@ -1,0 +1,86 @@
+[
+  {
+    "q": "Trong Service Provider, nên đăng ký binding vào container ở method nào?",
+    "options": ["`boot()`", "`register()`", "`handle()`", "`__construct()`"],
+    "answer": 1,
+    "explain": "`register()` chỉ dùng để bind. `boot()` chạy sau khi mọi provider đã register, dùng cho logic cần các service khác."
+  },
+  {
+    "q": "`Post::with('user')->get()` giải quyết vấn đề gì?",
+    "options": ["SQL injection", "N+1 query", "Mass assignment", "Race condition"],
+    "answer": 1,
+    "explain": "Eager loading tải quan hệ bằng 1 query thay vì 1 query cho mỗi bài viết."
+  },
+  {
+    "q": "Khác biệt giữa `$user->posts` và `$user->posts()`?",
+    "options": ["Giống nhau", "`posts` trả về Collection (đã query), `posts()` trả về Relation/query builder để nối thêm điều kiện", "`posts()` trả về mảng", "`posts` không cache"],
+    "answer": 1,
+    "explain": "Gọi như property sẽ thực thi query (và cache trên model); gọi như method trả về đối tượng quan hệ để chain `where`, `count`…"
+  },
+  {
+    "q": "Binding nào tạo instance mới cho mỗi request/job, phù hợp với Octane và queue worker?",
+    "options": ["`bind`", "`singleton`", "`scoped`", "`instance`"],
+    "answer": 2,
+    "explain": "`scoped` được reset sau mỗi request/job trong vòng đời Laravel, tránh rò rỉ state."
+  },
+  {
+    "q": "Tại sao không nên gọi `env()` trực tiếp trong code (ngoài thư mục config)?",
+    "options": ["Chậm", "Sau `php artisan config:cache`, `.env` không còn được nạp và `env()` trả về null", "Không an toàn với XSS", "Laravel cấm"],
+    "answer": 1,
+    "explain": "Chỉ gọi `env()` trong `config/*.php` và dùng `config()` trong code."
+  },
+  {
+    "q": "Validate thất bại với request có header `Accept: application/json` thì Laravel trả về?",
+    "options": ["Redirect 302", "JSON với status 422", "500", "400 text/html"],
+    "answer": 1,
+    "explain": "Request mong đợi JSON sẽ nhận 422 Unprocessable Content kèm `message` và `errors`."
+  },
+  {
+    "q": "Lệnh nào cần chạy sau khi deploy để queue worker dùng code mới?",
+    "options": ["`php artisan cache:clear`", "`php artisan queue:restart`", "`php artisan migrate`", "`composer dump-autoload`"],
+    "answer": 1,
+    "explain": "Worker là process dài hạn giữ code cũ trong bộ nhớ; `queue:restart` báo worker thoát êm sau job hiện tại để Supervisor khởi động lại."
+  },
+  {
+    "q": "Duyệt và **update** hàng trăm nghìn bản ghi theo điều kiện, cách an toàn nhất?",
+    "options": ["`Model::all()`", "`chunk()`", "`chunkById()`", "`get()->each()`"],
+    "answer": 2,
+    "explain": "`chunk()` dùng offset nên có thể bỏ sót bản ghi khi cột lọc thay đổi; `chunkById()` dùng `where id > ?` nên an toàn."
+  },
+  {
+    "q": "Thuộc tính nào chống mass assignment theo kiểu whitelist?",
+    "options": ["`$guarded`", "`$fillable`", "`$hidden`", "`$casts`"],
+    "answer": 1,
+    "explain": "`$fillable` liệt kê field được phép gán hàng loạt; `$hidden` ẩn field khi serialize."
+  },
+  {
+    "q": "Package nào phù hợp nhất cho API token của mobile app và xác thực SPA cùng domain?",
+    "options": ["Passport", "Sanctum", "Socialite", "Horizon"],
+    "answer": 1,
+    "explain": "Sanctum nhẹ, hỗ trợ personal access token và SPA cookie. Passport là OAuth2 server đầy đủ; Socialite để đăng nhập qua mạng xã hội."
+  },
+  {
+    "q": "`Post::where('status', 'draft')->update(['status' => 'published'])` có kích hoạt model event `updated` không?",
+    "options": ["Có", "Không", "Chỉ khi có Observer", "Chỉ trong transaction"],
+    "answer": 1,
+    "explain": "Mass update qua query builder chạy một câu SQL trực tiếp, không load model nên không có model event."
+  },
+  {
+    "q": "Middleware hoạt động theo pattern nào?",
+    "options": ["Singleton", "Observer", "Pipeline / Chain of Responsibility", "Factory"],
+    "answer": 2,
+    "explain": "Request đi qua chuỗi middleware lồng nhau (onion), mỗi lớp quyết định gọi `$next($request)` hay dừng."
+  },
+  {
+    "q": "Facade `Cache::get()` thực chất là gì?",
+    "options": ["Static method thật của class Cache", "Proxy tĩnh gọi tới object `cache` trong Service Container qua `__callStatic`", "Hàm global", "Trait"],
+    "answer": 1,
+    "explain": "Facade lấy instance từ container theo `getFacadeAccessor()` nên vẫn mock được bằng `Cache::shouldReceive()`."
+  },
+  {
+    "q": "Trong job queue, cách tốt nhất để đảm bảo job không chạy trước khi transaction DB commit?",
+    "options": ["`sleep(1)`", "`->afterCommit()`", "`->delay(0)`", "Dùng driver `sync`"],
+    "answer": 1,
+    "explain": "`afterCommit` dispatch job chỉ sau khi transaction đang mở được commit, tránh job đọc dữ liệu chưa tồn tại."
+  }
+]

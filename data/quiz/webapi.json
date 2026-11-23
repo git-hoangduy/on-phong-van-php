@@ -1,0 +1,50 @@
+[
+  {
+    "q": "Người dùng đã đăng nhập nhưng không có quyền xoá bài viết. API nên trả status nào?",
+    "options": ["400", "401", "403", "404"],
+    "answer": 2,
+    "explain": "401 là chưa xác thực; 403 là đã xác thực nhưng không có quyền."
+  },
+  {
+    "q": "Method HTTP nào **không** idempotent?",
+    "options": ["GET", "PUT", "DELETE", "POST"],
+    "answer": 3,
+    "explain": "Gửi POST nhiều lần có thể tạo nhiều bản ghi. Dùng Idempotency-Key cho thao tác quan trọng."
+  },
+  {
+    "q": "Lỗi CORS khi gọi API từ frontend khác domain cần xử lý ở đâu?",
+    "options": ["Frontend thêm header", "Server trả header `Access-Control-Allow-Origin` phù hợp", "Tắt HTTPS", "Dùng GET thay POST"],
+    "answer": 1,
+    "explain": "CORS do server cho phép; Laravel cấu hình ở `config/cors.php`."
+  },
+  {
+    "q": "Tạo mới tài nguyên thành công, REST API nên trả status nào?",
+    "options": ["200", "201", "204", "202"],
+    "answer": 1,
+    "explain": "201 Created (kèm tài nguyên hoặc header Location). 204 dùng khi không có body (ví dụ xoá)."
+  },
+  {
+    "q": "Khi nhận webhook IPN từ cổng thanh toán, việc nào **quan trọng nhất**?",
+    "options": ["Trả về HTML đẹp", "Xác thực chữ ký và xử lý idempotent", "Redirect người dùng", "Gửi email ngay trong request"],
+    "answer": 1,
+    "explain": "Verify chữ ký, đối chiếu số tiền, xử lý không trùng lặp vì webhook có thể gửi lại nhiều lần."
+  },
+  {
+    "q": "Trình duyệt gửi request `OPTIONS` trước một request PUT sang domain khác. Đây là?",
+    "options": ["Lỗi", "CORS preflight", "Health check", "Request HEAD"],
+    "answer": 1,
+    "explain": "Preflight hỏi server có cho phép method/header đó không trước khi gửi request thật."
+  },
+  {
+    "q": "Luồng OAuth2 nào khuyến nghị cho SPA và mobile app?",
+    "options": ["Implicit", "Password grant", "Authorization Code + PKCE", "Client Credentials"],
+    "answer": 2,
+    "explain": "Implicit và Password grant đã lỗi thời. Client Credentials dành cho server-to-server."
+  },
+  {
+    "q": "Lỗi 419 trong Laravel thường do?",
+    "options": ["Hết RAM", "CSRF token không hợp lệ / session hết hạn", "Route không tồn tại", "Lỗi DB"],
+    "answer": 1,
+    "explain": "419 (Page Expired) là mã riêng Laravel dùng cho lỗi CSRF token mismatch."
+  }
+]

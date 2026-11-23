@@ -1,0 +1,86 @@
+[
+  {
+    "q": "Kết quả của `var_dump(0 == \"a\");` trong PHP 8 là gì?",
+    "options": ["`bool(true)`", "`bool(false)`", "Warning", "TypeError"],
+    "answer": 1,
+    "explain": "Từ PHP 8, so sánh số với chuỗi không phải số sẽ chuyển số thành chuỗi rồi so sánh → `\"0\" == \"a\"` là false. PHP 7 trả về true."
+  },
+  {
+    "q": "`empty(\"0\")` trả về gì?",
+    "options": ["`false`", "`true`", "`null`", "Warning"],
+    "answer": 1,
+    "explain": "Chuỗi `\"0\"` được coi là falsy nên `empty(\"0\")` là `true` — một bẫy kinh điển."
+  },
+  {
+    "q": "Toán tử nào trả về giá trị bên phải nếu bên trái là `null` hoặc chưa tồn tại, mà không phát warning?",
+    "options": ["`?:`", "`??`", "`?->`", "`<=>`"],
+    "answer": 1,
+    "explain": "`??` (null coalescing) kiểm tra như `isset`. `?:` (elvis) dùng truthy và phát warning nếu biến chưa định nghĩa."
+  },
+  {
+    "q": "Đoạn code sau in ra gì?\n`$a = [1,2,3]; foreach ($a as &$v) {} foreach ($a as $v) {} echo implode(',', $a);`",
+    "options": ["`1,2,3`", "`1,2,2`", "`3,3,3`", "`1,1,1`"],
+    "answer": 1,
+    "explain": "Sau vòng 1, `$v` vẫn tham chiếu tới `$a[2]`. Vòng 2 gán lần lượt giá trị vào `$a[2]`, cuối cùng `$a[2] = $a[1] = 2`. Luôn `unset($v)` sau foreach tham chiếu."
+  },
+  {
+    "q": "Khác biệt chính giữa `self::` và `static::`?",
+    "options": ["Không khác nhau", "`static::` dùng late static binding — trỏ tới class được gọi lúc runtime", "`self::` chỉ dùng cho hằng số", "`static::` chỉ dùng trong static method"],
+    "answer": 1,
+    "explain": "`self::` cố định theo class nơi code được viết; `static::` phân giải theo class thực sự được gọi (late static binding)."
+  },
+  {
+    "q": "`match` khác `switch` ở điểm nào?",
+    "options": ["`match` so sánh lỏng (`==`)", "`match` là biểu thức, so sánh strict và ném lỗi nếu không khớp nhánh nào", "`match` cần `break`", "`match` cho phép fall-through"],
+    "answer": 1,
+    "explain": "`match` trả về giá trị, dùng `===`, không fall-through và ném `UnhandledMatchError` khi không khớp."
+  },
+  {
+    "q": "Hàm nào nên dùng để lưu mật khẩu người dùng?",
+    "options": ["`md5()`", "`sha1()`", "`password_hash()`", "`base64_encode()`"],
+    "answer": 2,
+    "explain": "`password_hash()` dùng bcrypt/Argon2 với salt tự động và chậm có chủ đích. MD5/SHA1 quá nhanh; base64 chỉ là encoding."
+  },
+  {
+    "q": "File nào phải được commit để đảm bảo mọi máy cài đúng cùng phiên bản thư viện?",
+    "options": ["`vendor/`", "`composer.lock`", "`.env`", "`composer.phar`"],
+    "answer": 1,
+    "explain": "`composer.lock` ghi chính xác phiên bản đã cài; `composer install` sẽ cài theo file này."
+  },
+  {
+    "q": "Ràng buộc phiên bản `^2.3.1` trong Composer tương đương với?",
+    "options": ["`>=2.3.1 <2.4.0`", "`>=2.3.1 <3.0.0`", "Chính xác `2.3.1`", "`>=2.0.0`"],
+    "answer": 1,
+    "explain": "Caret `^` cho phép mọi bản cập nhật không phá vỡ tương thích theo semver: đến trước major tiếp theo."
+  },
+  {
+    "q": "Phiên bản PHP nào giới thiệu **Enum** và thuộc tính `readonly`?",
+    "options": ["PHP 7.4", "PHP 8.0", "PHP 8.1", "PHP 8.3"],
+    "answer": 2,
+    "explain": "PHP 8.1: enum, readonly property, Fibers, `never`, first-class callable. `readonly class` có từ 8.2."
+  },
+  {
+    "q": "Dùng gì để đọc file CSV 5GB mà không hết bộ nhớ?",
+    "options": ["`file()`", "`file_get_contents()`", "Generator với `fgets`/`fgetcsv`", "`explode` toàn bộ nội dung"],
+    "answer": 2,
+    "explain": "Đọc từng dòng và `yield` giúp bộ nhớ chỉ giữ một dòng tại một thời điểm."
+  },
+  {
+    "q": "`array_merge(['a' => 1, 5 => 'x'], ['a' => 2, 5 => 'y'])` cho kết quả?",
+    "options": ["`['a' => 2, 0 => 'x', 1 => 'y']`", "`['a' => 1, 5 => 'x']`", "`['a' => 2, 5 => 'y']`", "`['a' => 1, 0 => 'x', 1 => 'y']`"],
+    "answer": 0,
+    "explain": "Key chuỗi trùng thì giá trị sau ghi đè; key số được đánh lại từ 0 và nối thêm."
+  },
+  {
+    "q": "PSR nào quy định autoload class theo namespace ↔ thư mục?",
+    "options": ["PSR-1", "PSR-3", "PSR-4", "PSR-7"],
+    "answer": 2,
+    "explain": "PSR-4 là chuẩn autoload; PSR-3 logger, PSR-7 HTTP message, PSR-1/12 code style."
+  },
+  {
+    "q": "Lỗi `502 Bad Gateway` trên Nginx + PHP-FPM thường do đâu?",
+    "options": ["Sai cú pháp HTML", "PHP-FPM không chạy / hết worker / crash", "Thiếu index database", "Người dùng chưa đăng nhập"],
+    "answer": 1,
+    "explain": "502 nghĩa là upstream (PHP-FPM) trả lỗi hoặc không phản hồi. 504 là upstream timeout."
+  }
+]

@@ -1,0 +1,56 @@
+[
+  {
+    "q": "Cách phòng chống SQL injection hiệu quả nhất?",
+    "options": ["`addslashes()`", "Prepared statement / parameter binding", "Ẩn thông báo lỗi", "Dùng POST thay GET"],
+    "answer": 1,
+    "explain": "Binding tách dữ liệu khỏi câu lệnh. Tên cột/hướng sort không bind được thì phải whitelist."
+  },
+  {
+    "q": "Người dùng đổi `/api/orders/1001` thành `/1002` và xem được đơn của người khác. Đây là lỗi gì?",
+    "options": ["XSS", "CSRF", "IDOR / Broken Access Control", "SQL Injection"],
+    "answer": 2,
+    "explain": "Phải kiểm tra quyền sở hữu ở backend (Policy, query qua quan hệ của user)."
+  },
+  {
+    "q": "Cờ cookie nào ngăn JavaScript đọc cookie (giảm thiệt hại XSS)?",
+    "options": ["`Secure`", "`HttpOnly`", "`SameSite`", "`Domain`"],
+    "answer": 1,
+    "explain": "`Secure` chỉ gửi qua HTTPS; `SameSite` giảm CSRF; `HttpOnly` chặn `document.cookie`."
+  },
+  {
+    "q": "Blade `{!! $comment !!}` với nội dung người dùng nhập có rủi ro gì?",
+    "options": ["Không có", "Stored XSS", "SQL Injection", "CSRF"],
+    "answer": 1,
+    "explain": "`{!! !!}` không escape HTML. Dùng `{{ }}` hoặc sanitize bằng HTML Purifier."
+  },
+  {
+    "q": "Tính năng 'nhập URL ảnh để server tải về' dễ bị tấn công nào?",
+    "options": ["SSRF", "Clickjacking", "Session fixation", "Brute force"],
+    "answer": 0,
+    "explain": "Kẻ tấn công có thể khiến server gọi vào mạng nội bộ hoặc metadata cloud. Cần whitelist và chặn IP nội bộ."
+  },
+  {
+    "q": "Sau khi người dùng đăng nhập thành công, cần làm gì để chống session fixation?",
+    "options": ["Xoá cookie", "Regenerate session ID", "Đổi mật khẩu", "Tắt session"],
+    "answer": 1,
+    "explain": "Laravel: `$request->session()->regenerate()` (đã có sẵn trong các starter kit)."
+  },
+  {
+    "q": "Header nào chống clickjacking?",
+    "options": ["`X-Content-Type-Options`", "`X-Frame-Options` / CSP `frame-ancestors`", "`Strict-Transport-Security`", "`Cache-Control`"],
+    "answer": 1,
+    "explain": "Ngăn trang của bạn bị nhúng vào iframe trên site khác."
+  },
+  {
+    "q": "Payload của JWT có được mã hoá không?",
+    "options": ["Có, bằng AES", "Không, chỉ base64url và được ký", "Có, bằng RSA", "Tuỳ trình duyệt"],
+    "answer": 1,
+    "explain": "Ai cũng decode được payload; chữ ký chỉ đảm bảo không bị sửa. Không đặt dữ liệu nhạy cảm trong JWT."
+  },
+  {
+    "q": "Lưu số CCCD của khách hàng cần đọc lại được, nên dùng?",
+    "options": ["`Hash::make()`", "Mã hoá (Laravel cast `encrypted` / `Crypt`)", "base64", "md5"],
+    "answer": 1,
+    "explain": "Hash là một chiều; cần đọc lại thì phải mã hoá (encryption) với khoá bí mật."
+  }
+]

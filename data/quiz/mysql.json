@@ -1,0 +1,74 @@
+[
+  {
+    "q": "Với index `(a, b, c)`, câu `WHERE b = 1 AND c = 2` có dùng được index để lọc hiệu quả không?",
+    "options": ["Có, dùng đầy đủ", "Thường là không — vi phạm leftmost prefix", "Chỉ dùng cột c", "Chỉ khi có ORDER BY a"],
+    "answer": 1,
+    "explain": "Composite index chỉ dùng hiệu quả từ cột trái nhất. (MySQL 8 có skip scan trong vài trường hợp nhưng không nên dựa vào.)"
+  },
+  {
+    "q": "Isolation level mặc định của InnoDB là?",
+    "options": ["READ UNCOMMITTED", "READ COMMITTED", "REPEATABLE READ", "SERIALIZABLE"],
+    "answer": 2,
+    "explain": "MySQL/InnoDB mặc định REPEATABLE READ (PostgreSQL mặc định READ COMMITTED)."
+  },
+  {
+    "q": "`WHERE YEAR(created_at) = 2025` có vấn đề gì?",
+    "options": ["Sai cú pháp", "Áp dụng hàm lên cột làm không dùng được index trên `created_at`", "Chỉ chạy trên MySQL 8", "Không có vấn đề"],
+    "answer": 1,
+    "explain": "Viết lại thành khoảng: `created_at >= '2025-01-01' AND created_at < '2026-01-01'`."
+  },
+  {
+    "q": "Kiểu dữ liệu phù hợp để lưu số tiền?",
+    "options": ["`FLOAT`", "`DOUBLE`", "`DECIMAL(15,2)`", "`VARCHAR`"],
+    "answer": 2,
+    "explain": "FLOAT/DOUBLE có sai số dấu phẩy động. DECIMAL chính xác (hoặc lưu số nguyên đơn vị nhỏ nhất)."
+  },
+  {
+    "q": "Trong `EXPLAIN`, giá trị `type` nào thể hiện full table scan?",
+    "options": ["`const`", "`ref`", "`range`", "`ALL`"],
+    "answer": 3,
+    "explain": "`ALL` là quét toàn bảng — dấu hiệu cần xem lại index hoặc điều kiện."
+  },
+  {
+    "q": "Khác biệt giữa `WHERE` và `HAVING`?",
+    "options": ["Giống nhau", "`WHERE` lọc dòng trước GROUP BY, `HAVING` lọc nhóm sau GROUP BY", "`HAVING` nhanh hơn", "`WHERE` dùng được hàm tổng hợp"],
+    "answer": 1,
+    "explain": "Hàm tổng hợp như `SUM`, `COUNT` chỉ dùng trong `HAVING` (hoặc SELECT/ORDER BY)."
+  },
+  {
+    "q": "`SELECT ... FOR UPDATE` trong transaction có tác dụng gì?",
+    "options": ["Cập nhật dữ liệu", "Đặt exclusive lock lên các dòng được đọc cho đến khi transaction kết thúc", "Tạo index", "Tăng tốc query"],
+    "answer": 1,
+    "explain": "Pessimistic lock: transaction khác muốn khoá/ghi các dòng đó phải chờ."
+  },
+  {
+    "q": "Hiện tượng đọc 2 lần cùng điều kiện nhưng số dòng khác nhau do transaction khác INSERT gọi là?",
+    "options": ["Dirty read", "Non-repeatable read", "Phantom read", "Deadlock"],
+    "answer": 2,
+    "explain": "Phantom read liên quan đến dòng mới xuất hiện; non-repeatable read là cùng một dòng có giá trị khác."
+  },
+  {
+    "q": "Câu `NOT IN (subquery)` có bẫy gì?",
+    "options": ["Không có", "Nếu subquery trả về NULL, kết quả sẽ rỗng", "Không dùng được với số", "Chỉ trả 1 dòng"],
+    "answer": 1,
+    "explain": "`x NOT IN (1, NULL)` cho kết quả UNKNOWN. Dùng `NOT EXISTS` hoặc lọc `IS NOT NULL`."
+  },
+  {
+    "q": "Charset nên dùng cho dữ liệu tiếng Việt và emoji trong MySQL?",
+    "options": ["`latin1`", "`utf8` (utf8mb3)", "`utf8mb4`", "`ascii`"],
+    "answer": 2,
+    "explain": "`utf8` cũ của MySQL chỉ 3 byte, không lưu được emoji. `utf8mb4` là UTF-8 đầy đủ."
+  },
+  {
+    "q": "Phân trang `LIMIT 20 OFFSET 2000000` chậm. Cách cải thiện phổ biến nhất?",
+    "options": ["Tăng RAM", "Keyset/cursor pagination: `WHERE id < :last_id ORDER BY id DESC LIMIT 20`", "Dùng `SELECT *`", "Bỏ ORDER BY"],
+    "answer": 1,
+    "explain": "OFFSET lớn vẫn phải quét và bỏ qua các dòng trước. Keyset dùng index nhảy thẳng tới vị trí."
+  },
+  {
+    "q": "`TRUNCATE TABLE` khác `DELETE FROM` (không WHERE) ở điểm nào?",
+    "options": ["TRUNCATE kích hoạt trigger", "TRUNCATE nhanh hơn, reset AUTO_INCREMENT, không rollback được", "DELETE reset AUTO_INCREMENT", "Không khác"],
+    "answer": 1,
+    "explain": "TRUNCATE là DDL (implicit commit), không chạy trigger DELETE."
+  }
+]

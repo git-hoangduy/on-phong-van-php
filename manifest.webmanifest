@@ -1,0 +1,17 @@
+{
+  "name": "PV PHP Fullstack – Ôn phỏng vấn",
+  "short_name": "PV PHP",
+  "description": "Ôn phỏng vấn PHP Fullstack: Laravel, MySQL, JS, DevOps, nghiệp vụ, HR",
+  "lang": "vi",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f6f7fb",
+  "theme_color": "#4f46e5",
+  "icons": [
+    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "assets/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

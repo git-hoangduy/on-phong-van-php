@@ -1,0 +1,56 @@
+[
+  {
+    "q": "Muốn hoàn tác một commit **đã push lên main** một cách an toàn, dùng lệnh nào?",
+    "options": ["`git reset --hard`", "`git revert <commit>`", "`git push --force`", "`git checkout <commit>`"],
+    "answer": 1,
+    "explain": "`revert` tạo commit đảo ngược, không viết lại lịch sử chung."
+  },
+  {
+    "q": "Quy tắc quan trọng nhất khi dùng `git rebase`?",
+    "options": ["Luôn rebase main", "Không rebase nhánh đã push mà người khác đang dùng chung", "Chỉ rebase khi có conflict", "Rebase thay cho commit"],
+    "answer": 1,
+    "explain": "Rebase viết lại hash commit, gây rối lịch sử của người khác."
+  },
+  {
+    "q": "Nginx `root` cho ứng dụng Laravel nên trỏ vào thư mục nào?",
+    "options": ["Thư mục gốc project", "`public/`", "`app/`", "`storage/`"],
+    "answer": 1,
+    "explain": "Trỏ vào gốc project sẽ lộ `.env`, mã nguồn ra ngoài."
+  },
+  {
+    "q": "Quyền phù hợp cho thư mục `storage/` của Laravel trên production?",
+    "options": ["`777`", "Owner là user chạy PHP-FPM (ví dụ www-data), 775/755", "`000`", "`644` cho thư mục"],
+    "answer": 1,
+    "explain": "Không bao giờ dùng 777. Thư mục cần quyền x để truy cập."
+  },
+  {
+    "q": "Lợi ích chính của Docker multi-stage build?",
+    "options": ["Build nhanh hơn ở mọi trường hợp", "Image cuối nhỏ gọn, không chứa công cụ build (composer, node)", "Không cần Dockerfile", "Chạy được trên Windows"],
+    "answer": 1,
+    "explain": "Các stage build riêng, chỉ copy artifact cần thiết sang image chạy."
+  },
+  {
+    "q": "Công cụ nào giữ `php artisan queue:work` luôn chạy và tự khởi động lại khi chết?",
+    "options": ["Cron", "Supervisor (hoặc systemd)", "Nginx", "Composer"],
+    "answer": 1,
+    "explain": "Cron chỉ chạy định kỳ (dùng cho `schedule:run`); Supervisor quản lý process dài hạn."
+  },
+  {
+    "q": "Khi chạy Laravel trên nhiều server sau load balancer, session nên lưu ở đâu?",
+    "options": ["File local", "Redis/DB dùng chung", "Cookie không mã hoá", "Biến static"],
+    "answer": 1,
+    "explain": "File local khiến người dùng bị đăng xuất khi request rơi vào server khác."
+  },
+  {
+    "q": "Volume trong Docker dùng để?",
+    "options": ["Tăng âm lượng log", "Lưu dữ liệu bền vững ngoài vòng đời container", "Giới hạn CPU", "Mở port"],
+    "answer": 1,
+    "explain": "Ví dụ dữ liệu MySQL không mất khi container bị xoá và tạo lại."
+  },
+  {
+    "q": "Trong một ứng dụng Laravel có scheduler, cần cấu hình gì trên server?",
+    "options": ["Một cron cho mỗi task", "Một cron `* * * * * php artisan schedule:run`", "Supervisor cho mỗi task", "Không cần gì"],
+    "answer": 1,
+    "explain": "Laravel tự quyết định task nào đến giờ chạy mỗi phút (hoặc dùng `schedule:work`)."
+  }
+]
